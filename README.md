@@ -1,24 +1,48 @@
-# README
+<h1>Auto Tuning</h1>
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+rails new AutoTuning
 
-Things you may want to cover:
+rails db:create
 
-* Ruby version
+rails g scaffold Oficina cliente:string endereco:string telefone:integer dataEntrada:date dataSaida:date valorServico:float concluido:boolean
 
-* System dependencies
+rake db:migrate
 
-* Configuration
+rails s
 
-* Database creation
 
-* Database initialization
+rails g scaffold Servico descricao:string
 
-* How to run the test suite
+rails g scaffold Estado descricao:string
 
-* Services (job queues, cache servers, search engines, etc.)
+rails g scaffold Veiculo descricao:string 
 
-* Deployment instructions
+rails g scaffold Marca descricao:string
 
-* ...
+
+rake db:migrate
+
+
+rails g migration AddServicoToOficina servico:references
+
+
+rails g migration AddEstadoToOficina estado:references
+
+
+rails g migration AddVeiculoToOficina veiculo:references
+
+
+rails g migration AddMarcaToOficina marca:references
+
+
+rake db:migrate
+
+
+class Oficina < ApplicationRecord
+  belongs_to :estado
+  belongs_to :servico
+  belongs_to :veiculo
+  belongs_to :marca
+end
+
+
